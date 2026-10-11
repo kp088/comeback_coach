@@ -1,0 +1,158 @@
+{
+  "base": "https://restart-coach.emergent.host",
+  "trimStart": 3.0369098589999997,
+  "duration": 58,
+  "recordedDuration": 58.003388169,
+  "scenes": [
+    {
+      "name": "landing",
+      "time": 0,
+      "text": "Comeback Coach",
+      "detail": "A live walkthrough • restart-coach.emergent.host"
+    },
+    {
+      "name": "dashboard",
+      "time": 4.915,
+      "text": "Start from where you are",
+      "detail": "Your goal, recent progress, and one suggested session"
+    },
+    {
+      "name": "goal",
+      "time": 10.699,
+      "text": "Switch your learning goal",
+      "detail": "Python basics → Working with data"
+    },
+    {
+      "name": "exercise",
+      "time": 13.991,
+      "text": "One short Python exercise",
+      "detail": "Sample content • build a dictionary and read a value"
+    },
+    {
+      "name": "hint",
+      "time": 17.733,
+      "text": "A hint when you need one",
+      "detail": "Get a useful nudge, without a penalty"
+    },
+    {
+      "name": "easier",
+      "time": 22.424,
+      "text": "Make It Easier",
+      "detail": "A ready-made dictionary. One smaller task. About 2 minutes"
+    },
+    {
+      "name": "input",
+      "time": 29.448,
+      "text": "Try an answer",
+      "detail": "Real sample input, checked by the app"
+    },
+    {
+      "name": "feedback",
+      "time": 31.891,
+      "text": "Helpful feedback, not pressure",
+      "detail": "The task asks for \"mon\" — correct the dictionary key"
+    },
+    {
+      "name": "passed",
+      "time": 39.294,
+      "text": "The corrected answer passes",
+      "detail": "Prototype: keyword validation, not Python execution"
+    },
+    {
+      "name": "completion",
+      "time": 44.502,
+      "text": "Complete your session",
+      "detail": "The smaller version counts, too"
+    },
+    {
+      "name": "history",
+      "time": 47.893,
+      "text": "See your progress history",
+      "detail": "Your new dictionary session is saved as Simplified"
+    },
+    {
+      "name": "next",
+      "time": 52.79,
+      "text": "You just have to start again",
+      "detail": "Progress saved. Your next small step is ready"
+    }
+  ],
+  "errors": [],
+  "mainFrameLoads": 1,
+  "completion": {
+    "id": "e6e739e9-206b-4210-9f05-1959ee51c90f",
+    "learner_id": "demo-learner",
+    "goal_id": "working-with-data",
+    "exercise_id": "db-1",
+    "exercise_title": "Look something up",
+    "concept": "Dictionaries",
+    "variant": "easier",
+    "completed_at": "2026-10-11T05:12:11.412544Z"
+  },
+  "finalCode": "scores = {\"mon\": 2, \"tue\": 3}\n# print the value for \"mon\"\nprint(scores[\"mon\"])",
+  "feedback": {
+    "passed": false,
+    "found": [],
+    "missing": [
+      "scores[\"mon\"]"
+    ],
+    "message": "Nothing to match yet. Start with one line — the hint can help."
+  },
+  "passed": {
+    "passed": true,
+    "found": [
+      "scores[\"mon\"]"
+    ],
+    "missing": [],
+    "message": "All the key pieces are there. Mark it complete when you're ready."
+  },
+  "finalDashboardText": "Comeback Coach\nDashboard\nSession\nHistory\n\nDashboard\n\nWelcome back, Sam.\n\nYou've already practised today. Another session is optional.\n\nSUGGESTED NEXT SESSION\nSample content\nAdd up your minutes\n\nAccumulating totals\n\nStart session\nAbout 5 min · can be made easier\n\nLEARNING GOAL\n\nWorking with data\n\nDictionaries and totals: the everyday shapes data takes in Python.\n\nProgress\n1 of 2 sessions\nRecent progress\nView all\n\nLook something up\n\nDictionaries\n\nSimplified\nOct 11\n\nSay it out loud\n\nVariables & print\n\nOct 11\n\nWrite a tiny function\n\nFunctions\n\nOct 11\n\nOne loop at a time\n\nfor loops\n\nOct 11\n\nSmall list, real count\n\nLists & len()\n\nSimplified\nSep 29\nHow this works\nNo streaks. A gap doesn't reset anything.\nOne session at a time. We suggest the next one; you choose when.\nSmaller is fine. Simplified sessions count the same.\n\n6 sessions completed so far\n\nYou don't have to catch up. You just have to start again.\n\nPrototype · exercises are sample content",
+  "responses": [
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/dashboard",
+      "method": "GET"
+    },
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/learner/goal",
+      "method": "PUT"
+    },
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/dashboard",
+      "method": "GET"
+    },
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/exercises/db-1",
+      "method": "GET"
+    },
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/exercises/db-1/check",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/exercises/db-1/check",
+      "method": "POST"
+    },
+    {
+      "status": 201,
+      "url": "https://restart-coach.emergent.host/api/completions",
+      "method": "POST"
+    },
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/completions",
+      "method": "GET"
+    },
+    {
+      "status": 200,
+      "url": "https://restart-coach.emergent.host/api/dashboard",
+      "method": "GET"
+    }
+  ],
+  "rawPath": "/app/artifacts/comeback-coach/raw/page@eb75c701cfa0776d4e7b671aac3b2c13.webm"
+}

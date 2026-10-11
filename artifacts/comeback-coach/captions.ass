@@ -1,0 +1,38 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1280
+PlayResY: 720
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Title,Liberation Sans,25,&H00FFFFFF,&H00FFFFFF,&H00162239,&H00162239,-1,0,0,0,100,100,0,0,1,0,0,2,50,50,40,1
+Style: Detail,Liberation Sans,18,&H00E6E9EF,&H00FFFFFF,&H00162239,&H00162239,0,0,0,0,100,100,0,0,1,0,0,2,50,50,13,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:04.92,Title,,0,0,0,,{\fad(140,100)}Comeback Coach
+Dialogue: 0,0:00:00.00,0:00:04.92,Detail,,0,0,0,,{\fad(140,100)}A live walkthrough • restart-coach.emergent.host
+Dialogue: 0,0:00:04.92,0:00:10.70,Title,,0,0,0,,{\fad(140,100)}Start from where you are
+Dialogue: 0,0:00:04.92,0:00:10.70,Detail,,0,0,0,,{\fad(140,100)}Your goal, recent progress, and one suggested session
+Dialogue: 0,0:00:10.70,0:00:13.99,Title,,0,0,0,,{\fad(140,100)}Switch your learning goal
+Dialogue: 0,0:00:10.70,0:00:13.99,Detail,,0,0,0,,{\fad(140,100)}Python basics → Working with data
+Dialogue: 0,0:00:13.99,0:00:17.73,Title,,0,0,0,,{\fad(140,100)}One short Python exercise
+Dialogue: 0,0:00:13.99,0:00:17.73,Detail,,0,0,0,,{\fad(140,100)}Sample content • build a dictionary and read a value
+Dialogue: 0,0:00:17.73,0:00:22.42,Title,,0,0,0,,{\fad(140,100)}A hint when you need one
+Dialogue: 0,0:00:17.73,0:00:22.42,Detail,,0,0,0,,{\fad(140,100)}Get a useful nudge, without a penalty
+Dialogue: 0,0:00:22.42,0:00:29.45,Title,,0,0,0,,{\fad(140,100)}Make It Easier
+Dialogue: 0,0:00:22.42,0:00:29.45,Detail,,0,0,0,,{\fad(140,100)}A ready-made dictionary. One smaller task. About 2 minutes
+Dialogue: 0,0:00:29.45,0:00:31.89,Title,,0,0,0,,{\fad(140,100)}Try an answer
+Dialogue: 0,0:00:29.45,0:00:31.89,Detail,,0,0,0,,{\fad(140,100)}Real sample input, checked by the app
+Dialogue: 0,0:00:31.89,0:00:39.29,Title,,0,0,0,,{\fad(140,100)}Helpful feedback, not pressure
+Dialogue: 0,0:00:31.89,0:00:39.29,Detail,,0,0,0,,{\fad(140,100)}The task asks for "mon" — correct the dictionary key
+Dialogue: 0,0:00:39.29,0:00:44.50,Title,,0,0,0,,{\fad(140,100)}The corrected answer passes
+Dialogue: 0,0:00:39.29,0:00:44.50,Detail,,0,0,0,,{\fad(140,100)}Prototype: keyword validation, not Python execution
+Dialogue: 0,0:00:44.50,0:00:47.89,Title,,0,0,0,,{\fad(140,100)}Complete your session
+Dialogue: 0,0:00:44.50,0:00:47.89,Detail,,0,0,0,,{\fad(140,100)}The smaller version counts, too
+Dialogue: 0,0:00:47.89,0:00:52.79,Title,,0,0,0,,{\fad(140,100)}See your progress history
+Dialogue: 0,0:00:47.89,0:00:52.79,Detail,,0,0,0,,{\fad(140,100)}Your new dictionary session is saved as Simplified
+Dialogue: 0,0:00:52.79,0:00:58.00,Title,,0,0,0,,{\fad(140,100)}You just have to start again
+Dialogue: 0,0:00:52.79,0:00:58.00,Detail,,0,0,0,,{\fad(140,100)}Progress saved. Your next small step is ready
