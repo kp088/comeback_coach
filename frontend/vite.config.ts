@@ -99,6 +99,9 @@ export default defineConfig(async () => {
       // Build-error rendering: emergent-overlay when it loaded, else Vite's own overlay.
       hmr: hotReloadDisabled ? false : { overlay: !emergentOverlay },
       watch: hotReloadDisabled ? null : { usePolling: true, interval: 300 },
+      // With HMR off, also drop the dev WebSocket: Vite's client calls location.reload()
+      // whenever that socket disconnects, which the preview panel's proxy triggers repeatedly.
+      ...(hotReloadDisabled ? { ws: false as const } : {}),
       // The /api proxy convention: frontend code calls relative /api/*, never an
       // absolute backend URL. Target is the FastAPI dev server (supervisor: backend).
       proxy: {
