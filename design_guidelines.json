@@ -1,0 +1,275 @@
+{
+  "project_name": "Comeback Coach",
+  "archetype": "ARCHETYPE 1: ORGANIC & EARTHY (Calm, Reassuring, Premium Learning)",
+  "emotional_tone": "Warm, encouraging, low-pressure, dignified, and calm. Zero guilt, zero streak pressure, zero hyperactive gamification. Focus on restarting without catch-up debt.",
+  "theme": "light",
+  "fonts": {
+    "heading": "Outfit Variable",
+    "body": "DM Sans Variable",
+    "mono": "JetBrains Mono Variable",
+    "css_imports": [
+      "@import \"@fontsource-variable/outfit\";",
+      "@import \"@fontsource-variable/dm-sans\";",
+      "@import \"@fontsource-variable/jetbrains-mono\";"
+    ],
+    "pairing_rationale": "Outfit Variable provides an open, human, calming geometry for titles without feeling clinical or cold. DM Sans Variable offers effortless legibility and warm rhythm for narrative instructions. JetBrains Mono Variable renders clean, legible sample Python code."
+  },
+  "typography": {
+    "scale_px": {
+      "display": 52,
+      "h1": 40,
+      "h2": 28,
+      "h3": 20,
+      "body": 16,
+      "caption": 14
+    },
+    "hierarchy_rules": {
+      "display": "text-4xl sm:text-5xl lg:text-[52px] font-semibold tracking-tight leading-[1.15]",
+      "h1": "text-3xl sm:text-4xl font-semibold tracking-tight leading-[1.2]",
+      "h2": "text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.25]",
+      "h3": "text-lg sm:text-xl font-medium tracking-normal leading-[1.35]",
+      "body": "text-base leading-relaxed tracking-normal",
+      "caption": "text-sm leading-normal tracking-normal",
+      "code": "font-mono text-sm leading-relaxed"
+    }
+  },
+  "colors": {
+    "palette": {
+      "warm_canvas": "#FAF8F5",
+      "warm_card": "#FFFFFF",
+      "warm_card_subtle": "#F4EFEA",
+      "deep_navy": "#1B2A4A",
+      "deep_navy_light": "#2D3E64",
+      "navy_muted": "#5C6B89",
+      "border_sand": "#E7DFD5",
+      "border_subtle": "#ECE5DC",
+      "coral_accent": "#E05D44",
+      "coral_hover": "#C94A32",
+      "coral_soft_bg": "#FDF2EF",
+      "coral_border": "#F8D5CE",
+      "sage_success": "#2D6A4F",
+      "sage_soft_bg": "#EDF5F1",
+      "sage_border": "#C7E5D6",
+      "amber_hint_bg": "#FEF7EE",
+      "amber_hint_border": "#F7E1C1",
+      "amber_hint_text": "#8F5614"
+    },
+    "surfaces": [
+      {
+        "name": "page",
+        "kind": "solid",
+        "bg": "#FAF8F5",
+        "on_bg": "#1B2A4A",
+        "on_bg_muted": "#5C6B89",
+        "roles": {
+          "link": "#E05D44",
+          "error": "#B91C1C",
+          "success": "#2D6A4F",
+          "border": "#E7DFD5"
+        }
+      },
+      {
+        "name": "panel",
+        "kind": "solid",
+        "bg": "#FFFFFF",
+        "on_bg": "#1B2A4A",
+        "on_bg_muted": "#5C6B89",
+        "roles": {
+          "link": "#E05D44",
+          "error": "#B91C1C",
+          "success": "#2D6A4F",
+          "border": "#E7DFD5"
+        }
+      },
+      {
+        "name": "panel_subtle",
+        "kind": "solid",
+        "bg": "#F4EFEA",
+        "on_bg": "#1B2A4A",
+        "on_bg_muted": "#5C6B89",
+        "roles": {
+          "link": "#E05D44",
+          "error": "#B91C1C",
+          "success": "#2D6A4F",
+          "border": "#E7DFD5"
+        }
+      },
+      {
+        "name": "coral_pill_surface",
+        "kind": "solid",
+        "bg": "#FDF2EF",
+        "on_bg": "#B83A22",
+        "on_bg_muted": "#C94A32",
+        "roles": {
+          "border": "#F8D5CE"
+        }
+      },
+      {
+        "name": "sage_success_surface",
+        "kind": "solid",
+        "bg": "#EDF5F1",
+        "on_bg": "#1E4C38",
+        "on_bg_muted": "#2D6A4F",
+        "roles": {
+          "border": "#C7E5D6"
+        }
+      },
+      {
+        "name": "hint_callout_surface",
+        "kind": "solid",
+        "bg": "#FEF7EE",
+        "on_bg": "#6E3F0A",
+        "on_bg_muted": "#8F5614",
+        "roles": {
+          "border": "#F7E1C1"
+        }
+      },
+      {
+        "name": "code_editor_surface",
+        "kind": "solid",
+        "bg": "#172138",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#94A3B8",
+        "roles": {
+          "keyword": "#F472B6",
+          "string": "#86EFAC",
+          "comment": "#64748B",
+          "border": "#283554"
+        }
+      },
+      {
+        "name": "inverse_footer",
+        "kind": "solid",
+        "bg": "#131C32",
+        "on_bg": "#F8FAFC",
+        "on_bg_muted": "#94A3B8",
+        "roles": {
+          "link": "#FCA5A5",
+          "border": "#243254"
+        }
+      }
+    ],
+    "accent": "#E05D44",
+    "on_accent": "#FFFFFF"
+  },
+  "entry_surfaces": {
+    "/": "calm editorial hero — encouraging statement & Start Learning Again CTA left, gentle 3-step restart interactive preview right",
+    "/dashboard": "focused command hub — active goal switcher & calm streak-free progress bar top, suggested next session center, restart habits guide right",
+    "/session": "distraction-free split workspace — exercise briefing with Make It Easier trigger left, dark-tinted code editor + hint drawer + keyword validation right",
+    "/history": "clean chronological session log — warm metric cards top, detailed completed exercise list with difficulty badges and timestamps below"
+  },
+  "layout_and_grids": {
+    "max_width": "max-w-6xl mx-auto px-4 sm:px-6 lg:px-8",
+    "container_padding": "py-8 sm:py-12",
+    "card_style": "bg-white border border-[#E7DFD5] rounded-2xl p-6 sm:p-8 shadow-[0_2px_12px_rgba(27,42,74,0.04)]",
+    "hero_layout": "grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center",
+    "session_layout": "grid grid-cols-1 lg:grid-cols-12 gap-8 items-start",
+    "history_layout": "max-w-4xl mx-auto space-y-6"
+  },
+  "signature_interaction": {
+    "name": "Make It Easier",
+    "purpose": "Reduces friction when a learner feels stuck or intimidated. Swaps exercise into a simpler version without penalty, guilt, or condescending praise.",
+    "ui_behavior": "When clicked: 1) exercise description updates to shorter task, 2) starter code provides helpful scaffold, 3) a gentle banner appears: 'No judgment. Stepping stones build strong bridges. Try this simpler step.' 4) badge updates to 'Simplified Step' with a soft amber/coral badge, 5) validation keywords adjust dynamically."
+  },
+  "components_structure": {
+    "AppShell": "frontend/src/components/AppShell.tsx (Header with logo 'Comeback Coach', NavLinks with active states, Goal Switcher, Sample Content pill badge)",
+    "LandingHero": "frontend/src/components/LandingHero.tsx (Value prop, reassuring stats, restart philosophy, CTA button)",
+    "GoalSwitcher": "frontend/src/components/GoalSwitcher.tsx (Select dropdown between 'Python Basics: 0 to 1', 'Data Cleaning with Pandas', 'API & Web Requests')",
+    "ProgressPill": "frontend/src/components/ProgressPill.tsx (Gentle progress indicator without punitive streaks)",
+    "CodeEditor": "frontend/src/components/CodeEditor.tsx (Textarea-style code sandbox with line numbering, run check button, clear feedback state)",
+    "HintBox": "frontend/src/components/HintBox.tsx (Collapsible hint drawer with gentle guidance)",
+    "SampleBadge": "frontend/src/components/SampleBadge.tsx (Visual marker clearly distinguishing sample curriculum content)",
+    "MakeItEasierButton": "frontend/src/components/MakeItEasierButton.tsx (Signature interaction button with sparkle/feather icon)"
+  },
+  "pages_and_routes": [
+    {
+      "path": "/",
+      "component": "frontend/src/pages/Home.tsx",
+      "description": "Landing page introducing the low-pressure learning philosophy with clear CTA"
+    },
+    {
+      "path": "/dashboard",
+      "component": "frontend/src/pages/Dashboard.tsx",
+      "description": "Learner dashboard with active goal selector, session progress, and next recommended step"
+    },
+    {
+      "path": "/session/:sessionId?",
+      "component": "frontend/src/pages/Session.tsx",
+      "description": "Interactive Python coding exercise with hint reveal, Make It Easier mode, and keyword checking"
+    },
+    {
+      "path": "/history",
+      "component": "frontend/src/pages/History.tsx",
+      "description": "Log of completed sessions with ease-mode markers, timestamps, and calm reflections"
+    }
+  ],
+  "sample_exercises": [
+    {
+      "id": "py-01",
+      "goal_id": "python-basics",
+      "title": "Printing Your Comeback Message",
+      "difficulty": "Standard",
+      "estimated_min": 3,
+      "task_standard": "Write a Python script that defines a variable `message` with value 'Starting again today' and prints it using `print(message)`.",
+      "starter_standard": "# Welcome back! Define your message and print it\nmessage = \"...\"\n",
+      "keywords_standard": ["message", "print", "Starting again today"],
+      "task_easier": "Just call `print('Starting again today')` directly.",
+      "starter_easier": "# One simple line is all you need\nprint(\"Starting again today\")\n",
+      "keywords_easier": ["print"],
+      "hint": "In Python, `print()` outputs text to the screen. You can pass a string or variable inside the parentheses.",
+      "encouragement": "Every long journey starts with a single executed line of code."
+    },
+    {
+      "id": "py-02",
+      "goal_id": "python-basics",
+      "title": "Counting Your Micro-Wins",
+      "difficulty": "Standard",
+      "estimated_min": 4,
+      "task_standard": "Create a list called `wins` with 3 items (e.g. 'showed up', 'opened editor', 'wrote code'). Print the length of the list using `len(wins)`.",
+      "starter_standard": "# Record your small steps\nwins = [\"showed up\", \"opened editor\", \"wrote code\"]\n# Print how many wins you have\n",
+      "keywords_standard": ["wins", "len"],
+      "task_easier": "Print `len(['step 1', 'step 2'])` to see list length in action.",
+      "starter_easier": "# Find the count of elements\nwins = [\"step 1\", \"step 2\"]\nprint(len(wins))\n",
+      "keywords_easier": ["len"],
+      "hint": "The `len()` function returns the number of items inside any Python list or sequence.",
+      "encouragement": "Micro-wins compound faster than intense marathons."
+    },
+    {
+      "id": "py-03",
+      "goal_id": "python-basics",
+      "title": "Building a Gentle Greeting Function",
+      "difficulty": "Standard",
+      "estimated_min": 5,
+      "task_standard": "Define a function named `greet_learner(name)` that returns `f\"Welcome back, {name}!\"`. Call it with your name.",
+      "starter_standard": "# Define your encouraging helper function\ndef greet_learner(name):\n    return f\"Welcome back, {name}!\"\n\n# Call the function below:\n",
+      "keywords_standard": ["def", "greet_learner", "return"],
+      "task_easier": "Fill in the return statement inside `def greet(name): return f'Hi {name}'`.",
+      "starter_easier": "def greet(name):\n    return f\"Hi {name}\"\n\nprint(greet(\"Friend\"))\n",
+      "keywords_easier": ["greet", "return"],
+      "hint": "Functions use `def function_name(param):` and return values with the `return` keyword.",
+      "encouragement": "You're writing real, modular Python functions again. No rush."
+    }
+  ],
+  "motion_and_interactions": {
+    "style": "Subtle, smooth, zero aggressive bouncy effects",
+    "transitions": "transition-colors duration-200 ease-out, transition-opacity duration-150 ease-out",
+    "button_press": "active:scale-[0.98] transition-transform duration-100",
+    "card_hover": "hover:border-[#D5C9BC] hover:shadow-[0_4px_16px_rgba(27,42,74,0.06)] transition-all duration-200",
+    "easier_mode_transition": "Gentle fade-in for the simplified task using Framer Motion or opacity transition"
+  },
+  "accessibility": {
+    "wcag_compliance": "WCAG AA minimum 4.5:1 text contrast for all body and muted copy",
+    "focus_states": "focus-visible:ring-2 focus-visible:ring-[#E05D44] focus-visible:ring-offset-2 outline-none",
+    "test_attributes": "All buttons, links, inputs, selects, code editors, tabs, and alerts MUST carry distinct `data-testid` attributes (e.g. data-testid='start-learning-btn', data-testid='make-it-easier-btn', data-testid='check-code-btn', data-testid='goal-switcher-select')"
+  },
+  "instructions_to_main_agent": [
+    "Configure `frontend/src/index.css` with Outfit, DM Sans, and JetBrains Mono variable font imports and the warm off-white (#FAF8F5) background with deep navy (#1B2A4A) text tokens.",
+    "Mount 4 distinct pages in `App.tsx`: Home ('/'), Dashboard ('/dashboard'), Session ('/session/:sessionId?'), History ('/history').",
+    "Implement the FastAPI backend with MongoDB endpoints for getting goals, listing exercises, fetching session status, checking code (keyword verification), toggling 'Make It Easier', and recording completed sessions in DB for a single demo learner.",
+    "Include sample seed data in `backend/seed.py` for 3 distinct learning goals ('Python Basics', 'Pandas Micro-Tasks', 'HTTP & APIs') with pre-built standard & simplified exercises.",
+    "Display a visible 'Sample content' badge near exercise headers as instructed in problem statement.",
+    "Ensure 'Make It Easier' immediately swaps the code prompt and starter code with an encouraging banner and updates the active difficulty tag without guilt or exaggeration.",
+    "Ensure all interactive elements have explicit `data-testid` attributes for tests.",
+    "Verify frontend with `cd /app/frontend && yarn typecheck` and test API endpoints thoroughly."
+  ]
+}
