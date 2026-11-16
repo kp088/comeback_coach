@@ -2,7 +2,6 @@ import path from "node:path";
 import { defineConfig, type UserConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import { visualEdits } from "@emergentbase/visual-edits/vite";
 
 // Supervisor exports DISABLE_HOT_RELOAD=true when the platform sets ENABLE_RELOAD=false.
 const hotReloadDisabled = process.env.DISABLE_HOT_RELOAD === "true";
@@ -19,10 +18,24 @@ const emergentOverlayDisabled = process.env.DISABLE_EMERGENT_OVERLAY === "true";
 async function loadEmergentOverlay() {
   if (emergentOverlayDisabled) return null;
   try {
-    const mod = await import("@emergentbase/overlay/vite");
+    // Variable specifier: the package is optional (absent in the GitHub Pages build).
+    const pkg = "@emergentbase/overlay/vite";
+    const mod = await import(/* @vite-ignore */ pkg);
     return mod.emergentOverlay();
   } catch (e) {
     console.warn("[emergent-overlay] plugin failed to load; using Vite's overlay instead:", e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
+// Same fail-open rule for Visual Edits: optional outside the Emergent pod.
+async function loadVisualEdits() {
+  if (visualEditsDisabled) return null;
+  try {
+    const pkg = "@emergentbase/visual-edits/vite";
+    const mod = await import(/* @vite-ignore */ pkg);
+    return mod.visualEdits();
+  } catch {
     return null;
   }
 }
@@ -36,11 +49,12 @@ if (!hotReloadDisabled) {
 // https://vite.dev/config/
 export default defineConfig(async () => {
   const emergentOverlay = await loadEmergentOverlay();
+  const visualEditsPlugin = await loadVisualEdits();
   return {
     plugins: [
       react(),
       tailwindcss(),
-      ...(visualEditsDisabled ? [] : [visualEdits()]),
+      ...(visualEditsPlugin ? [visualEditsPlugin] : []),
       // No isServe guard: this factory takes no ConfigEnv arg, so build purity here rests
       // on the package's own `apply: "serve"`.
       ...(emergentOverlay ? [emergentOverlay] : []),

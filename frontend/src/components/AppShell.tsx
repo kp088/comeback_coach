@@ -2,6 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import type { ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { DEMO_MODE } from "@/lib/api";
+
+// Showcase mode only: put the browser-stored progress back to its starting state.
+async function resetShowcase() {
+  const { resetDemo } = await import("@/lib/demoApi");
+  resetDemo();
+  window.location.reload();
+}
 
 const NAV = [
   { to: "/dashboard", label: "Dashboard", testid: "nav-dashboard-link" },
@@ -52,7 +60,16 @@ export default function AppShell({ children }: { children: ReactNode }) {
       <footer className="border-t border-sand-line">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-sm text-navy-muted sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p>You don't have to catch up. You just have to start again.</p>
-          <p data-testid="footer-content-note">Prototype · exercises are sample content</p>
+          {DEMO_MODE ? (
+            <p data-testid="footer-content-note">
+              Showcase demo · progress is saved only in this browser ·{" "}
+              <button type="button" onClick={resetShowcase} data-testid="demo-reset-button" className="font-medium text-navy underline underline-offset-4 hover:text-coral-ink">
+                Reset demo
+              </button>
+            </p>
+          ) : (
+            <p data-testid="footer-content-note">Prototype · exercises are sample content</p>
+          )}
         </div>
       </footer>
       <Toaster />

@@ -1,4 +1,3 @@
-
 name: Deploy Comeback Coach to GitHub Pages
 
 on:
@@ -18,6 +17,9 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,15 +27,26 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+
+      # The Emergent editor plugins are only needed inside Emergent; skip them here.
+      - name: Drop Emergent-only dev packages
+        working-directory: frontend
+        run: npm pkg delete "devDependencies.@emergentbase/overlay" "devDependencies.@emergentbase/visual-edits"
 
       - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install
+        run: yarn install --no-lockfile --non-interactive
 
       - name: Build frontend
         working-directory: frontend
-        run: npm run build -- --base=/comeback_coach/
+        env:
+          # Showcase mode (no backend, everything runs in the browser) is the default.
+          # To use a real backend instead, add a repository variable VITE_API_URL under
+          # Settings > Secrets and variables > Actions > Variables.
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_DEMO_MODE: ${{ vars.VITE_API_URL == '' && 'true' || 'false' }}
+        run: yarn build --base=/comeback_coach/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
@@ -43,9 +56,6 @@ jobs:
         with:
           path: frontend/dist
 
-       - name: Deploy website
+      - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
-        environment:
-          name: github-pages
-          url: ${{ steps.deployment.outputs.page_url }}
