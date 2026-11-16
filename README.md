@@ -1,195 +1,114 @@
-# farm-ts
-
-Minimal split backend/frontend starter: **FastAPI + MongoDB** behind a
-**Vite + React 19 + TypeScript** frontend, joined by a small typed fetch layer
-over `/api`. This is a bare skeleton — no app features are implemented. Build on
-top of it.
-
-## Layout
-
-```
-farm-ts/
-  backend/   FastAPI + motor (async MongoDB) + Pydantic v2 — python, /root/.venv
-  frontend/  Vite + React 19 + Tailwind v4 + shadcn/ui (TypeScript strict)
-  tests/     Playwright e2e workspace (pre-scaffolded)
-```
-
-## Running
-
-Two separate processes, managed by supervisor in the pod (see "Pod conventions"
-below); to run them by hand from two terminals instead:
-
+# Comeback Coach
+ 
+**A calm learning companion for people who lost momentum.**
+*You don't have to catch up. You just have to start again.*
+ 
+Comeback Coach helps someone return to learning Python after a break. It doesn't count what you missed. It suggests one short session, offers a hint when you need one, and makes the task smaller when that helps.
+ 
+**[Try the live demo](https://kp088.github.io/comeback_coach/)** · **[Watch the 1-minute walkthrough](https://kp088.github.io/comeback_coach/downloads/comeback-coach-walkthrough.mp4)**
+ 
+[![Comeback Coach session screen: a short Python exercise with a code editor, a hint, and a passed check](artifacts/comeback-coach/passed-proof.png)](https://kp088.github.io/comeback_coach/downloads/comeback-coach-walkthrough.mp4)
+ 
+<sub>Click the image to play the walkthrough video.</sub>
+ 
+## Why I built it
+ 
+Most learning apps punish a break: broken streaks, a backlog of missed lessons, a reminder of how far behind you are. That is exactly when people quit. Comeback Coach is built around the opposite idea: the only session that matters is today's, and a smaller session still counts.
+ 
+## What it does
+ 
+| Feature | How it works |
+|---|---|
+| **Start from where you are** | The dashboard shows your goal, recent progress and one suggested session. A gap of days is framed without guilt. |
+| **One short exercise** | Each session is a single Python task of two to six minutes, written in an in-browser code editor. |
+| **A hint when you need one** | Every exercise has a hint, with no penalty for using it. |
+| **Make It Easier** | One click swaps the task for a simpler version of the same concept. It still counts as a completed session. |
+| **Helpful feedback** | "Check my code" shows which key pieces are present and which are missing. |
+| **History** | A record of what you've done, including which sessions were full or simplified, not what you skipped. |
+ 
+Three learning goals are included: **Python basics**, **Working with data** and **Small automations** (eight exercises in total).
+ 
+![History page listing completed sessions, marked as full or simplified](artifacts/comeback-coach/history-proof.png)
+ 
+## Tech stack
+ 
+- **Frontend:** React 19, TypeScript, Vite, Tailwind CSS v4, shadcn/ui, TanStack Query, React Router
+- **Backend:** FastAPI, Pydantic v2, MongoDB (async, via Motor)
+- **Hosting:** GitHub Pages, deployed by GitHub Actions on every push to `main`
+## Two ways it runs
+ 
+**Showcase mode (the live demo).** The whole app runs in the browser with no server. The API is mirrored in `frontend/src/lib/demoApi.ts`, and progress is saved in the visitor's own browser, so every visitor gets a private copy. Use **Reset demo** in the footer to start over.
+ 
+**Full-stack mode.** The React frontend talks to the FastAPI backend, which stores progress in MongoDB.
+ 
+## Run it locally
+ 
+Showcase mode, frontend only:
+ 
 ```bash
-cd backend && uvicorn server:app --host 0.0.0.0 --port 8001 --reload   # http://localhost:8001
-cd frontend && yarn dev                                                # http://localhost:3000
+cd frontend
+yarn install
+VITE_DEMO_MODE=true yarn dev        # http://localhost:3000
 ```
-
-## The `/api` proxy convention
-
-Every backend route lives under `/api` (the backend mounts one
-`APIRouter(prefix="/api")`), and the frontend dev server
-(`frontend/vite.config.ts`) proxies `/api/*` to `http://localhost:8001`. So
-frontend code always calls a **relative** path — `apiGet("/status")` →
-`/api/status` — and never an absolute backend URL. The same code works in dev
-(via the Vite proxy) and in production (once both are served behind a single
-origin).
-
-## Backend
-
-FastAPI, async throughout. `python` is the app venv interpreter
-(`/root/.venv/bin/python`); backend deps are pip-installed from
-`backend/requirements.txt`.
-
-- **Entry point**: `backend/server.py` — creates `app = FastAPI()`, creates
-  `api_router = APIRouter(prefix="/api")`, registers routes **on the router**,
-  and calls `app.include_router(api_router)` at the bottom. CORS middleware is
-  added from `CORS_ORIGINS`. Never hang a route directly off `app` — it would
-  land outside `/api` and the Vite proxy would not reach it.
-- **The route pattern** (copy `status` in `server.py`):
-  1. a Pydantic model per request body and per response
-     (`StatusCheckCreate` / `StatusCheck`);
-  2. an `async def` handler decorated with
-     `@api_router.post("/status", response_model=StatusCheck)`;
-  3. `await` the motor call inside it.
-  FastAPI validates the request against the Pydantic model before your handler
-  runs — a malformed body never reaches your code, it gets an automatic `422`
-  with a `{"detail": [...]}` body.
-- **Growing the backend**: as `server.py` gets crowded, move models to
-  `backend/models/` and routers to `backend/routers/` (one module per resource,
-  each exporting its own `APIRouter`, mounted from `server.py` via
-  `api_router.include_router(...)` or `app.include_router(...)` with the `/api`
-  prefix preserved).
-- **MongoDB**: import the shared handle — `from lib.db import client, db`
-  (`backend/lib/db.py` self-loads `.env` before reading env). Use it from
-  `server.py`, every router, and standalone scripts like `seed.py`; never
-  construct another `AsyncIOMotorClient`. Collections are attributes:
-  `await db.status_checks.insert_one(...)`, `await db.status_checks.find().to_list(1000)`.
-  Motor connects lazily, so importing `server` never blocks on Mongo. `pymongo`
-  is installed too if you need a sync client in a script.
-- **Ids**: documents use a string `id` (`uuid4`) field, not Mongo's `ObjectId`
-  — `ObjectId` is not JSON-serializable and leaks into response bodies. Keep the
-  `uuid4` default-factory pattern from `StatusCheck`.
-- **Config**: `backend/.env` — `MONGO_URL` (connection string), `DB_NAME`
-  (database name), `CORS_ORIGINS`. `server.py` loads it with `python-dotenv`
-  above its local imports, and `lib/db.py` self-loads it so standalone scripts
-  inherit it too. The pod runs `mongod` locally, so `MONGO_URL` points at
-  `localhost`. Add new secrets/config here; read them with `os.environ`.
-- **Dates**: `backend/lib/dates.py` — `today_iso(tz=None)`. The pod clock is
-  UTC; anchor "today" server-side with this, never with client-side date math.
-- **Interactive check**: `cd /app/backend && python -c 'import server'` catches
-  syntax/import errors without waiting for the supervisor log.
-
-## Frontend
-
-- Vite + React 19 + TypeScript strict, dev server on port `3000`.
-- Tailwind CSS v4 (via the `@tailwindcss/vite` plugin — no separate
-  `tailwind.config.js` needed) + shadcn/ui, initialized with the `base-nova`
-  style and `neutral` base color, `@` path alias (`@/*` → `src/*`) wired in both
-  `tsconfig.app.json`/`tsconfig.json` and `vite.config.ts`.
-- `react-router-dom` and `motion` are preinstalled — don't re-add them. `src/App.tsx`
-  is the `<Routes>` table and nothing else; screens live in `src/pages/*.tsx` and are
-  imported as `@/pages/<Name>`. `src/pages/Home.tsx` ships as the worked example. Add
-  a `<Route>` for every page you write, in the same edit that creates the page — a
-  page with no route is unreachable, and any URL without a matching `<Route>` renders a
-  **blank page** — `<Routes>` matches nothing and mounts nothing.
-- Components installed under `src/components/ui/`: button, card, input, label,
-  select, dialog, sheet, tabs, badge, calendar, sonner, textarea, table, popover,
-  dropdown-menu, checkbox. Add more with `npx shadcn@latest add <component>`.
-- `src/lib/api.ts` — the typed fetch layer: `apiGet<T>`, `apiPost<T>`,
-  `apiPut<T>`, `apiPatch<T>`, `apiDelete<T>`, all relative to base `/api`,
-  throwing `ApiError` (with `status` and the parsed body) on any non-2xx.
-  **Nothing infers across the Python boundary** — you declare the response type
-  yourself as a TS interface mirroring the endpoint's Pydantic model, and keeping
-  the two in sync is a manual discipline. When you change a Pydantic model,
-  change its TS interface in the same edit.
-- `src/pages/Home.tsx` is a minimal example of the wiring: TanStack Query's `useQuery`
-  with `apiGet<StatusCheck[]>("/status")` as the `queryFn`. It is a **non-blocking
-  connectivity probe**, not a proof of the round trip — the result is deliberately
-  discarded so the splash renders identically with no backend. `apiGet<T>` does no
-  runtime validation either; `T` is your assertion, not a check. See the
-  static-preview rule in `TEMPLATE.md` §4 for why no page may be gated on a fetch.
-
-## TypeScript
-
-`frontend/tsconfig.app.json` / `tsconfig.node.json` have `strict: true`. In the
-pod:
-
+ 
+Full stack, in two terminals:
+ 
 ```bash
-cd frontend && yarn typecheck
+# Terminal 1: backend (needs MongoDB running)
+cd backend
+pip install -r requirements.txt
+# create backend/.env containing MONGO_URL=... and DB_NAME=...
+uvicorn server:app --port 8001 --reload
+python seed.py                      # optional: sample learner and history
+ 
+# Terminal 2: frontend
+cd frontend
+yarn install
+yarn dev                            # http://localhost:3000, proxies /api to :8001
 ```
-
-— plain `tsc --noEmit` run from `frontend/` checks ZERO files (root tsconfig uses
-project references with `"files": []`) and exits 0 even with type errors. Always
-use `-b` for the frontend. Lint with `cd frontend && yarn lint` (oxlint).
-
-## Data fetching
-
-TanStack Query is wired: `QueryClientProvider` in `src/main.tsx`, `useQuery` demo
-in `src/pages/Home.tsx` (see above). Use `useQuery`/`useMutation`, not
-fetch-in-`useEffect`.
-
-## Completion gate (tier 1)
-
-When the build is complete, run tier 1 once, all in the same turn: a curl smoke
-over the key `/api` endpoints (assert status AND a response field, plus one
-negative case), `cd frontend && yarn typecheck`, and ONE happy-path browser pass
-through the core user journey. Clean on all three → finish; any failure is a real
-bug — fix it, re-run the failed check, and escalate to the testing subagent.
-No routine typecheck/lint/smoke passes during the build — tier 1 runs exactly once.
-
-
-## Testing
-
-Two lanes.
-
-**Backend (pytest)** — specs in `backend/tests/` as `test_*.py`, run with:
-
-```bash
-cd /app/backend && pytest
+ 
+## Project structure
+ 
 ```
-
-`backend/pytest.ini` is canonical: `addopts = -n 2 --dist loadscope` (pytest-xdist,
-already parallel — do not pass your own `-n`) and `asyncio_mode = auto` (so
-`async def test_...` needs no marker). Serial is `-n 0`, **never**
-`-p no:xdist` (that errors, because `addopts` still passes `-n`/`--dist`).
-`backend/tests/conftest.py` is pre-scaffolded — a sync `client` fixture
-(`httpx.Client` rooted at `/api`), an async `aclient`, and an `api_url()` helper,
-all pointed at `BACKEND_URL` (default `http://localhost:8001`). Tests hit the
-live uvicorn process, so the app under test is the one the browser sees. Add
-app-specific fixtures below the marker; do not re-create the file.
-
-**Frontend (Playwright)** — `/app/tests/` is pre-scaffolded:
-`playwright.config.ts` (canonical — edit the marked lines only),
-`fixtures/helpers.ts`, and a `package.json` that resolves
-`@playwright/test@1.62.0` (node_modules baked into the image). Write specs into
-`tests/e2e/`. Do NOT re-create the config/helpers or install/upgrade playwright —
-matching Chromium browsers live at `/pw-browsers`.
-
-The backend lane is pytest: this template's backend is Python, so `vitest` does
-not apply to it.
-
-## Pod conventions
-
-This template runs under supervisord in the Emergent agent pod — supersedes any
-local-run instructions above.
-
-- Backend, frontend, and `mongod` are each a supervisor program. After code or
-  config changes, restart and wait for readiness:
-
-  ```bash
-  sudo supervisorctl restart frontend backend
-  until curl -sf -o /dev/null http://localhost:3000; do sleep 2; done
-  ```
-
-- Status, only after a restart you triggered:
-  `sudo supervisorctl status frontend backend`. Logs:
-  `/var/log/supervisor/backend.err.log`, `backend.out.log`,
-  `frontend.err.log`.
-- App in a browser: the pod's preview URL (frontend, port `3000`). Backend API
-  directly at port `8001`.
-- `mongod` runs locally in the pod (`--bind_ip_all`); `MONGO_URL` in
-  `backend/.env` points at `localhost`, no separate Mongo container.
-- Both dev servers hot-reload on file edits (uvicorn `--reload` for the backend,
-  Vite HMR for the frontend); no rebuild step needed for normal iteration. A
-  restart is still needed after changing `.env`, `requirements.txt`, or
-  `vite.config.ts`.
+backend/
+  server.py            FastAPI app, mounts everything under /api
+  routers/coach.py     goals, dashboard, exercises, check, completions
+  content/sample.py    the exercises and goals
+  models/coach.py      Pydantic models
+frontend/
+  src/pages/           Home, Dashboard, Session, History
+  src/lib/api.ts       typed fetch layer (switches to showcase mode)
+  src/lib/demoApi.ts   browser-only copy of the API for the live demo
+.github/workflows/     GitHub Pages deploy
+```
+ 
+## API
+ 
+All routes live under `/api`.
+ 
+| Method | Route | Purpose |
+|---|---|---|
+| GET | `/goals` | List learning goals |
+| PUT | `/learner/goal` | Switch the active goal |
+| GET | `/dashboard` | Progress, recent sessions and the suggested next exercise |
+| GET | `/exercises/{id}` | One exercise, with full and simplified versions |
+| POST | `/exercises/{id}/check` | Check submitted code |
+| POST | `/completions` | Log a completed session |
+| GET | `/completions` | Session history, newest first |
+ 
+## Current limits
+ 
+This is a prototype, and these are the honest edges:
+ 
+- The code check looks for key pieces in what you typed. It does not run the code.
+- There is no login. The app has a single demo learner named Sam.
+- Exercises are hand-written sample content.
+## What's next
+ 
+- Run submitted code for real, in the browser
+- Accounts, so each learner keeps their own history across devices
+- AI-generated exercises matched to the learner's goal
+## About
+ 
+Built by **Kirtan Patel**. The first version was prototyped with Emergent AI; I then added the browser-only showcase mode and the GitHub Pages deployment.
+ 
