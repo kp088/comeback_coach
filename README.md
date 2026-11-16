@@ -5,7 +5,7 @@
  
 Comeback Coach helps someone return to learning Python after a break. It doesn't count what you missed. It suggests one short session, offers a hint when you need one, and makes the task smaller when that helps.
  
-**[Try the live demo](https://kp088.github.io/comeback_coach/)** · **[Watch the 1-minute walkthrough](https://kp088.github.io/comeback_coach/downloads/comeback-coach-walkthrough.mp4)**
+**[Try the live demo](https://kp088.github.io/comeback_coach/)** · 
  
 [![Comeback Coach session screen: a short Python exercise with a code editor, a hint, and a passed check](artifacts/comeback-coach/passed-proof.png)](https://kp088.github.io/comeback_coach/downloads/comeback-coach-walkthrough.mp4)
  
