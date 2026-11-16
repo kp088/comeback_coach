@@ -5,7 +5,7 @@
  
 Comeback Coach helps someone return to learning Python after a break. It doesn't count what you missed. It suggests one short session, offers a hint when you need one, and makes the task smaller when that helps.
  
-**[Try the live demo](https://kp088.github.io/comeback_coach/)** · 
+**[Try the live demo](https://kp088.github.io/comeback_coach/)** 
  
 ## Why I built it
  
@@ -24,7 +24,6 @@ Most learning apps punish a break: broken streaks, a backlog of missed lessons, 
  
 Three learning goals are included: **Python basics**, **Working with data** and **Small automations** (eight exercises in total).
  
-![History page listing completed sessions, marked as full or simplified](artifacts/comeback-coach/history-proof.png)
  
 ## Tech stack
  
