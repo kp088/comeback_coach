@@ -7,10 +7,6 @@ Comeback Coach helps someone return to learning Python after a break. It doesn't
  
 **[Try the live demo](https://kp088.github.io/comeback_coach/)** · 
  
-[![Comeback Coach session screen: a short Python exercise with a code editor, a hint, and a passed check](artifacts/comeback-coach/passed-proof.png)](https://kp088.github.io/comeback_coach/downloads/comeback-coach-walkthrough.mp4)
- 
-<sub>Click the image to play the walkthrough video.</sub>
- 
 ## Why I built it
  
 Most learning apps punish a break: broken streaks, a backlog of missed lessons, a reminder of how far behind you are. That is exactly when people quit. Comeback Coach is built around the opposite idea: the only session that matters is today's, and a smaller session still counts.
@@ -41,31 +37,6 @@ Three learning goals are included: **Python basics**, **Working with data** and 
  
 **Full-stack mode.** The React frontend talks to the FastAPI backend, which stores progress in MongoDB.
  
-## Run it locally
- 
-Showcase mode, frontend only:
- 
-```bash
-cd frontend
-yarn install
-VITE_DEMO_MODE=true yarn dev        # http://localhost:3000
-```
- 
-Full stack, in two terminals:
- 
-```bash
-# Terminal 1: backend (needs MongoDB running)
-cd backend
-pip install -r requirements.txt
-# create backend/.env containing MONGO_URL=... and DB_NAME=...
-uvicorn server:app --port 8001 --reload
-python seed.py                      # optional: sample learner and history
- 
-# Terminal 2: frontend
-cd frontend
-yarn install
-yarn dev                            # http://localhost:3000, proxies /api to :8001
-```
  
 ## Project structure
  
