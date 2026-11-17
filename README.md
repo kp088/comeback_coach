@@ -6,6 +6,7 @@
 Comeback Coach helps someone return to learning Python after a break. It doesn't count what you missed. It suggests one short session, offers a hint when you need one, and makes the task smaller when that helps.
  
 **[Try the live demo](https://kp088.github.io/comeback_coach/)** 
+**[Article published in AWS Builder Center](https://builder.aws.com/content/3KXG5US4qEWbn2vDEHBGXYg1DVS/comeback-coach)**
  
 ## Why I built it
  
